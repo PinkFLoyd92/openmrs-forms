@@ -1,5 +1,6 @@
 <!-- FormEncounterType represents Vitals -->
-<htmlform formName="Signos Vitales" formEncounterType="67a71486-1a54-468f-ac3e-7091a9a79584" formVersion="1.0">
+<htmlform formName="Signos_Vitales" formEncounterType="67a71486-1a54-468f-ac3e-7091a9a79584" formVersion="1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"></link>
   <style>
    #calculated-bmi {
      font-weight: bold;
@@ -12,7 +13,6 @@
    }
   </style>
 
-  <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
   <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 5">
 
     <script type="text/javascript">
@@ -22,8 +22,7 @@
          bmi = wt / ((ht/100) * (ht/100));
        }
        return bmi ;
-     }
-    </script>
+     }</script>
 
     <ifMode mode="ENTER">
       <script type="text/javascript">
@@ -60,8 +59,7 @@
 
        jq(function() {
 	 jq('#bp_diastolic input[type=text]').attr('min', '30');
-       });
-      </script>
+       });</script>
     </ifMode>
 
     <script>
@@ -69,8 +67,7 @@
      jq(function() {
        jq('#bp_systolic > input').addClass('expected');
        jq('#bp_diastolic > input').addClass('expected');
-     });
-    </script>
+     });</script>
 
     <ifMode mode="VIEW">
       <script type="text/javascript">
@@ -97,9 +94,7 @@
            }
          });
 
-       });
-
-      </script>
+       });</script>
     </ifMode>
 
   </includeIf>
