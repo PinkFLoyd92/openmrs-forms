@@ -3,7 +3,6 @@ import IconButton from "material-ui/IconButton"
 import Dialog from "material-ui/Dialog"
 import TextField from "material-ui/TextField"
 import FlatButton from "material-ui/FlatButton"
-import { drugs } from "../resources"
 import {
   Table,
   TableBody,

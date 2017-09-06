@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "name": "Signos Vitales",
   "description": "Manejo de Signos Vitales",
-  "launch_path": "index.html",
+  "launch_path": "/index.html",
   "icons": {
     "48": "/imges/user.jpg"
   },

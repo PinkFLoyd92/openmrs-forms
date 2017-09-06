@@ -1,72 +1,59 @@
-/**
- * The contents of this file are subject to the OpenMRS Public License
- * Version 1.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- * http://license.openmrs.org
- * Software distributed under the License is distributed on an "AS IS"
- * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
- * License for the specific language governing rights and limitations
- * under the License.
- * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
- */
-// generated on 2017-07-08 using generator-openmrs-owa 0.4.0
-'use strict';
-const webpack = require('webpack');
-const path = require('path');
-const fs = require('fs');
-const env = require('yargs').argv.mode;
-const target = require('yargs').argv.target;
-
-const UglifyPlugin = webpack.optimize.UglifyJsPlugin;
-const CommonsChunkPlugin =  webpack.optimize.CommonsChunkPlugin;
-const DedupePlugin = webpack.optimize.DedupePlugin;
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WebpackOnBuildPlugin = require('on-build-webpack');
 
 
-const nodeModulesDir = path.resolve(__dirname, '../node_modules');
+const webpack = require("webpack")
+const path = require("path")
+const fs = require("fs")
+const env = require("yargs").argv.mode
+const target = require("yargs").argv.target
 
-const THIS_APP_ID = 'billingreact';
+const UglifyPlugin = webpack.optimize.UglifyJsPlugin
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
+const DedupePlugin = webpack.optimize.DedupePlugin
 
-var plugins = [];
-const nodeModules = {};
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
+const WebpackOnBuildPlugin = require("on-build-webpack")
 
-let outputFile = `.bundle`;
-let outputPath;
 
-var configJson;
-let appEntryPoint;
-let localOwaFolder;
+const nodeModulesDir = path.resolve(__dirname, "../node_modules")
 
-let devtool;
+const THIS_APP_ID = "vitals"
 
-var getConfig = function () {
-	  var config;
+const plugins = []
+const nodeModules = {}
+
+let outputFile = ".bundle"
+let outputPath
+
+let configJson
+let appEntryPoint
+let localOwaFolder
+
+let devtool
+
+const getConfig = function () {
+	  let config
 
 	  try {
 	    // look for config file
-	    config = require('./config.json');
+	    config = require("./config.json")
 	  } catch (err) {
 	    // create file with defaults if not found
 	    config = {
-	      'LOCAL_OWA_FOLDER': '/home/sebas/openmrs/openmrs-platform/owa/',
-	      'APP_ENTRY_POINT': 'http://localhost:9000/openmrs/owa/billingreact/index.html'
-	    };
+	      LOCAL_OWA_FOLDER: "/home/sebas/openmrs/dev260/owa/",
+	      APP_ENTRY_POINT: "http://localhost:9000/openmrs/owa/vitals/index.html",
+	    }
 
-	    fs.writeFile('config.json', JSON.stringify(config));
-
+	    fs.writeFile("config.json", JSON.stringify(config))
 	  } finally {
-	    return config;
-	  };
-	}
-var config = getConfig();
+	    return config
+	  }
+}
+const config = getConfig()
 
 /** Minify for production */
-if (env === 'production') {
-
+if (env === "production") {
 	  plugins.push(new UglifyPlugin({
 	    output: {
 	      comments: false,
@@ -74,116 +61,107 @@ if (env === 'production') {
 	    minimize: true,
 	    sourceMap: false,
 	    compress: {
-	        warnings: false
-	    }
-	  }));
-	  plugins.push(new DedupePlugin());
-	  outputFile = `${outputFile}.min.js`;
-	  outputPath = `${__dirname}/dist/`;
-	  plugins.push(new WebpackOnBuildPlugin(function(stats){
-      //create zip file
-      var archiver = require('archiver');
-			var output = fs.createWriteStream(THIS_APP_ID+'.zip');
-			var archive = archiver('zip');
+	        warnings: false,
+	    },
+	  }))
+	  plugins.push(new DedupePlugin())
+	  outputFile = `${outputFile}.min.js`
+	  outputPath = `${__dirname}/dist/`
+	  plugins.push(new WebpackOnBuildPlugin((stats) => {
+      // create zip file
+    const archiver = require("archiver")
+    const output = fs.createWriteStream(`${THIS_APP_ID}.zip`)
+    const archive = archiver("zip")
 
-			output.on('close', function () {
-			    console.log('distributable has been zipped! size: '+archive.pointer());
-			});
+    output.on("close", () => {
+			    console.log(`distributable has been zipped! size: ${archive.pointer()}`)
+    })
 
-			archive.on('error', function(err){
-			    throw err;
-			});
+    archive.on("error", (err) => {
+			    throw err
+    })
 
-			archive.pipe(output);
+    archive.pipe(output)
 
-      archive.directory(`${outputPath}`, '');
+    archive.directory(`${outputPath}`, "")
 
-			archive.finalize();
+    archive.finalize()
 		 }))
-
-} else if (env === 'deploy') {
-	  outputFile = `${outputFile}.js`;
-	  outputPath = `${config.LOCAL_OWA_FOLDER}${THIS_APP_ID}`;
-	  devtool = 'source-map';
-
-} else if (env === 'dev') {
-	  outputFile = `${outputFile}.js`;
-	  outputPath = `${__dirname}/dist/`;
-	  devtool = 'source-map';
+} else if (env === "deploy") {
+	  outputFile = `${outputFile}.js`
+	  outputPath = `${config.LOCAL_OWA_FOLDER}${THIS_APP_ID}`
+	  devtool = "source-map"
+} else if (env === "dev") {
+	  outputFile = `${outputFile}.js`
+	  outputPath = `${__dirname}/dist/`
+	  devtool = "source-map"
 }
 
 plugins.push(new BrowserSyncPlugin({
-    proxy: {
-    	target : config.APP_ENTRY_POINT
-    }
-}));
+  proxy: {
+    	target: config.APP_ENTRY_POINT,
+  },
+}))
 
-plugins.push(new CommonsChunkPlugin("vendor", "vendor.bundle.js"));
+plugins.push(new CommonsChunkPlugin("vendor", "vendor.bundle.js"))
 
 plugins.push(new HtmlWebpackPlugin({
-    template: './app/index.html',
-    inject: 'body'
-}));
+  template: "./app/index.html",
+  inject: "body",
+}))
 
 plugins.push(new CopyWebpackPlugin([{
-    from: './app/manifest.webapp'
-}]));
+  from: "./app/manifest.webapp",
+}]))
 
-plugins.push(new CopyWebpackPlugin([{
-    from: './app/img/omrs-button.png',
-    to: 'img/omrs-button.png'
-}]));
+// plugins.push(new CopyWebpackPlugin([{
+//     from: './app/img/omrs-button.png',
+//     to: 'img/omrs-button.png'
+// }]));
 
 
-
-var webpackConfig = {
+const webpackConfig = {
   quiet: false,
   entry: {
-	  app : `${__dirname}/app/js/billingreact`,
-	  css: `${__dirname}/app/css/billingreact.css`,
-	  vendor : [
-	        	
-	        	
-                
-                    'react', 'react-router'
-                    
-                        , 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
-                    
-                
-	            ]
+    app: `${__dirname}/app/js/vitals`,
+  // css: `${__dirname}/app/css/vitals.css`,
+    vendor: [
+      "react", "react-router",
+      "redux", "redux-promise-middleware", "redux-thunk", "react-redux",
+    ],
   },
-  devtool: devtool,
+  devtool,
   target,
   output: {
     path: outputPath,
-    filename: '[name]'+outputFile,
+    filename: `[name]${outputFile}`,
   },
   module: {
     loaders: [{
-	    test: /\.jsx?$/,
-	    loader: 'babel-loader',
-	    exclude: /node_modules/,
-	    query: {
-	        presets: [ 'es2015', 'react' ],
-	        cacheDirectory : true
-	    }
-    },{
-	    test: /\.css$/,
-	    loader: 'style-loader!css-loader'
-	}, {
-	    test: /\.(png|jpg|jpeg|gif|svg)$/,
-	    loader: 'url'
-	}, {
-	    test: /\.html$/,
-	    loader: 'html'
-	}],
+      test: /\.jsx?$/,
+      loader: "babel-loader",
+      exclude: /node_modules/,
+      query: {
+        presets: ["es2015", "react"],
+        cacheDirectory: true,
+      },
+    }, {
+      test: /\.css$/,
+      loader: "style-loader!css-loader",
+    }, {
+      test: /\.(png|jpg|jpeg|gif|svg)$/,
+      loader: "url",
+    }, {
+      test: /\.html$/,
+      loader: "html",
+    }],
   },
   resolve: {
-    root: path.resolve('./src'),
-    extensions: ['', '.js', '.jsx'],
+    root: path.resolve("./src"),
+    extensions: ["", ".js", ".jsx"],
   },
   plugins,
   externals: nodeModules,
-};
+}
 
-module.exports = webpackConfig;
+module.exports = webpackConfig
