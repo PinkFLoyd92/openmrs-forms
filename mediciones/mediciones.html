@@ -1,0 +1,101 @@
+<htmlform formName="Mediciones y Actividades" formEncounterType="67a71486-1a54-468f-ac3e-7091a9a79584" formVersion="1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"></link>
+  <script>
+   jq(document).ready(function () {
+     jq('.dieta').find('input').change(function (selected) {
+       for(index in jq('.dieta').find('input').toArray()) {
+         console.info(jq(selected))
+         console.info(index)
+       }
+     })
+
+   })
+
+  </script>
+
+  <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+    <fieldset>
+      <legend>When?</legend>
+      <label>When?</label>
+
+      <encounterDate default="now" showTime="false"/>
+    </fieldset>
+
+    <fieldset>
+      <legend>Who?</legend>
+      <label>Who?</label>
+      <encounterProviderAndRole default="currentUser" encounterRole="240b26f9-dd88-4172-823d-4a8bfeb7841f" required="true"/>
+    </fieldset>
+
+    <fieldset>
+      <legend>Where?</legend>
+      <label>Where?</label>
+
+      <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+    </fieldset>
+  </div>
+
+  <section id="mediciones" sectionTag="section" headerStyle="title" headerCode="referenceapplication.vitals.title">
+    <fieldset>
+      <legend>Aseo</legend>
+      <h4>Aseo</h4>
+      <p class="left">
+        <obs conceptId="163156" style="checkbox" />
+      </p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Baño</legend>
+      <h4>Baño</h4>
+      <p class="left">
+        <obs conceptId="163157" style="checkbox" />
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('163141').name"/></legend>
+      <h4>Opciones a seleccionar</h4>
+
+      <p class="radio">
+        <obs conceptId="163141" style="radio"
+             answerConceptIds="163142,163144,163145,163147" answerCodes="Blanda, Hiper Proteica, Hiper Calorica, NPO"
+             answerSeparator="" required="true"/>
+      </p>
+      <!-- <p class="left">
+           <obs class="dieta" conceptId="163141" answerConceptId="163142" answerLabel="Blanda"/> <br/>
+           <obs class="dieta" conceptId="163141" answerConceptId="163144" answerLabel="Hiper Proteica"/> <br/>
+           <obs class="dieta" conceptId="163141" answerConceptId="163145" answerLabel="Hiper Calorica"/> <br/>
+           <obs class="dieta" conceptId="163141" answerConceptId="163147" answerLabel="NPO"/>
+           </p> -->
+
+    </fieldset>
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('163160').name"/></legend>
+      <h4>Seleccione una opcion</h4>
+
+      <p class="radio">
+        <obs conceptId="163160" style="radio"
+             answerConceptIds="163158,163159" answerLabels="RR, RA"
+             answerSeparator="" required="true"/>
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('163154').name"/></legend>
+      <h3><lookup expression="fn.getConcept('163154').name"/></h3>
+
+      <p>
+        <obs conceptId="163154" unitsCssClass="append-to-value"/>
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('163155').name"/></legend>
+      <h3><lookup expression="fn.getConcept('163155').name"/></h3>
+
+      <p>
+        <obs conceptId="163155" unitsCssClass="append-to-value"/>
+      </p>
+    </fieldset>
+  </section>
+
+  <submit/>
+
+</htmlform>
