@@ -1,8 +1,17 @@
-export const FETCH_ACTIVE_VISITS = "FETCH_ACTIVE_VISITS"
+import apiCall from "../utilities/apiHelper"
 
-export function fetchActiveVisits() {
+export const FETCH_ACTIVE_VISITS = "FETCH_ACTIVE_VISITS"
+export const RECEIVED_ACTIVE_VISITS = "RECEIVED_ACTIVE_VISITS"
+
+export function receivedActiveVisits(visits) {
   return {
-    type: FETCH_ACTIVE_VISITS,
-    payload: {},
+    type: RECEIVED_ACTIVE_VISITS,
+    payload: visits,
+  }
+}
+export function fetchActiveVisits() {
+  return (dispatch) => {
+    apiCall(null, "get", "/visit?v=default")
+      .then(result => dispatch(receivedActiveVisits(result)))
   }
 }

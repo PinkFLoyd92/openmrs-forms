@@ -1,15 +1,12 @@
-import { FETCH_ACTIVE_VISITS } from "../actions/Visits"
-import apiCall from "../utilities/apiHelper"
+import { FETCH_ACTIVE_VISITS, RECEIVED_ACTIVE_VISITS } from "../actions/Visits"
 
 function visits(state = [], action) {
   switch (action.type) {
     case FETCH_ACTIVE_VISITS: {
-      console.info("Fetching visits")
-      apiCall(null, "get", "/visit?v=default")
-        .then((result) => {
-          console.info("Fetching visits: ", result)
-        })
       return state
+    }
+    case RECEIVED_ACTIVE_VISITS: {
+      return action.payload.results
     }
     default:
       return state
