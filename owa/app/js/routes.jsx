@@ -1,14 +1,15 @@
 import React from "react"
 import App from "./containers/app"
-import Drug from "./containers/drug"
+import Search from "./containers/Search"
 import { Route, IndexRoute } from 'react-router';
 
-console.log(App)
+/*
+* Search {Component} Here we fetch the active visits and make a table from it..
+*/
 export default (store) => {
     return (
-        <Route path="/" component={App}>
-          <IndexRoute component={Drug} />
-        <Route path="drugs" component={Drug}/>
-        </Route>
+      <Route path="/" component={App}>
+        <IndexRoute component={Search} />
+      </Route>
     )
 }

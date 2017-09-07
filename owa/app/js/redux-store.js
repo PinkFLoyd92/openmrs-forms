@@ -20,7 +20,9 @@ applyMiddleware(
 export default function storeNew() {
   const initialState = {
     obs: [],
-    patient: {},
+    visits: [],
+    patients: [],
+    patientSelected: {},
     session: {},
   }
   const store = createStore(rootReducer, initialState, enhancer)
