@@ -1,0 +1,148 @@
+<!-- FormEncounterType represents Vitals -->
+<htmlform formName="balance_hidrico" formEncounterType="67a71486-1a54-468f-ac3e-7091a9a79584" formVersion="1.0">
+	<style>
+		#total_ingresos_r{
+			width: 50px;
+			min-width: 10%;
+		}
+		#total_egresos_r{
+			width: 50px;
+			min-width: 10%;
+		}
+		obs{
+			display: inline-block;
+		}
+		label{
+			display: inline-block;
+			text-align: right;
+		}
+
+	</style>
+  <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
+
+  <div class="hidden" id="encounter-details" sectionTag="section" headerLabel="Encounter Details">
+    <fieldset>
+      <legend>When?</legend>
+      <label>When?</label>
+
+      <encounterDate default="now" showTime="false"/>
+    </fieldset>
+
+    <fieldset>
+      <legend>Who?</legend>
+      <label>Who?</label>
+
+      <encounterProviderAndRole default="currentUser" encounterRole="240b26f9-dd88-4172-823d-4a8bfeb7841f" required="true"/>
+    </fieldset>
+
+    <fieldset>
+      <legend>Where?</legend>
+      <label>Where?</label>
+
+      <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+    </fieldset>
+  </div>
+
+  <section id="balance_hidrico" sectionTag="section">
+    <fieldset id='forma_ingresos'>
+      <legend>Ingresos (cc)</legend>
+      <h3><lookup expression="fn.getConcept('163148').name"/></h3>
+
+      <p class="left">
+        <obs conceptId="163148"  id="parenteral" unitsCssClass="append-to-value"/>
+      </p>
+
+			<h3><lookup expression="fn.getConcept('163151').name"/></h3>
+
+			<p class="left">
+				<obs conceptId="163151"  id="via_oral" unitsCssClass="append-to-value"/>
+			</p>
+
+			<div hidden='true'>
+				<h3><lookup expression="fn.getConcept('163163').name"/></h3>
+				<p class="left">
+					<obs conceptId="163163"  id="total_ingresos" unitsCssClass="append-to-value" readonly='true'/>
+				</p>
+			</div>
+
+			<h3>Total (cc)</h3>
+			<input type="text" id='total_ingresos_r' readonly='true'></input>
+			<!-- <label>cc</label> -->
+
+    </fieldset>
+
+    <fieldset id='forma_egresos'>
+      <legend>Egresos (cc)</legend>
+      <h3><lookup expression="fn.getConcept('163140').name"/></h3>
+
+      <p class="left">
+        <obs conceptId="163140"  id="orina" unitsCssClass="append-to-value"/>
+      </p>
+
+			<h3><lookup expression="fn.getConcept('163152').name"/></h3>
+
+			<p class="left">
+				<obs conceptId="163152"  id="drenaje" unitsCssClass="append-to-value"/>
+			</p>
+
+			<h3><lookup expression="fn.getConcept('163153').name"/></h3>
+
+			<p class="left">
+				<obs conceptId="163153"  id="otros" unitsCssClass="append-to-value"/>
+			</p>
+
+			<div hidden='true'>
+				<h3><lookup expression="fn.getConcept('163164').name"/></h3>
+				<p class="left">
+					<obs conceptId="163164"  id="total_egresos" unitsCssClass="append-to-value" readonly='true'/>
+				</p>
+			</div>
+			<h3>Total (cc)</h3>
+			<input type="text" id='total_egresos_r' readonly='true'></input>
+
+			<!-- <label>cc</label> -->
+
+		</fieldset>
+
+  </section>
+
+  <submit/>
+
+	<!-- <button onclick="goBack()">Cancelar</button> -->
+
+	<script type="text/javascript">
+
+		function calcularTotal(){
+
+			var ingresos = parseInt(getValue('parenteral.value')) + parseInt(getValue('via_oral.value'))
+			var egresos = parseInt(getValue('orina.value')) + parseInt(getValue('drenaje.value')) + parseInt(getValue('otros.value'))
+
+			if (ingresos>0){
+				setValue('total_ingresos.value', ingresos);
+				document.getElementById('total_ingresos_r').value=ingresos;
+			}
+			if (egresos>0){
+				setValue('total_egresos.value', egresos);
+				document.getElementById('total_egresos_r').value=egresos;
+			}
+
+		};
+
+
+		jQuery(function(){
+		    getField('parenteral.value').change(function(){calcularTotal()});
+				getField('orina.value').change(function(){calcularTotal()});
+				getField('drenaje.value').change(function(){calcularTotal()});
+				getField('otros.value').change(function(){calcularTotal()});
+				getField('via_oral.value').change(function(){calcularTotal()});
+				getField('total_ingresos.value').change(function(){calcularTotal()});
+			  getField('total_egresos.value').change(function(){calcularTotal()});
+		});
+
+		function goBack() {
+    	window.history.back();
+		}
+
+	</script>
+
+</htmlform>
