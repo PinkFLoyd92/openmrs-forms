@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import Drawer from "../containers/Drawer"
+import { Grid } from "react-bootstrap"
 
 class App extends Component {
   constructor(props) {
@@ -7,9 +9,12 @@ class App extends Component {
 
   render() {
     return (
-        <div id="mainApp">
+      <div>
+        <Drawer />
+        <Grid id="mainApp">
           { this.props.children }
-        </div>
+        </Grid>
+      </div>
     )
   }
 }
