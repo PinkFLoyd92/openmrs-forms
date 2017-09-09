@@ -4,6 +4,7 @@ import { patients } from "./patients"
 import { visits, visitSelected } from "./visits"
 import { sidebar, sidebarOption } from "./sidebar"
 import { obs } from "./obs"
+import { errors } from "./errors"
 
 const rootReducer = combineReducers({
   routing: router,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   sidebar,
   sidebarOption,
   obs,
+  errors,
 })
 
 export default rootReducer

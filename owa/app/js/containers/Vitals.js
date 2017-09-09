@@ -13,6 +13,7 @@ const mapStateToProps = state => Object.assign({}, state, {
   visitSelected: state.visitSelected,
   obs: state.obs,
   sidebarOption: state.sidebarOption,
+  errors: state.errors,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Vitals)

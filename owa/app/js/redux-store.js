@@ -28,6 +28,9 @@ export default function storeNew() {
     session: {},
     sidebar: true,
     sidebarOption: 1,
+    errors: {
+      obs: false,
+    },
   }
   const store = createStore(rootReducer, initialState, enhancer)
   return store
