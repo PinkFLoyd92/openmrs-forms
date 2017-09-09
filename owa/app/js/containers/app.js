@@ -1,14 +1,15 @@
 // import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
+// import * as sidebarActions from "../actions/sidebar"
 import App from "../components/App"
 
 // function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(null, dispatch);
+//   return bindActionCreators(sidebarActions, dispatch);
 // }
 
 // const mapStateToProps = state => Object.assign({}, state, {
-//     drawOpen: state.drawOpen,
+//     sidebar: state.sidebar,
 // });
 
 export default App

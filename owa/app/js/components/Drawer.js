@@ -1,23 +1,28 @@
 import React, { Component } from "react"
-import { nav } from "react-bootstrap"
+import { nav, Nav, Breadcrumb } from "react-bootstrap"
 
 class Drawer extends Component {
 
   constructor(props) {
     super(props)
+    this.toggleDraw = this.toggleDraw.bind(this)
   }
 
-  componentDidMount() {
-    console.info("Loading the drawer.")
+  toggleDraw(){
+    console.info("toggle sidebar")
+    this.props.toggleSidebar()
   }
 
   render() {
     return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-inverse">
         <div className="container-fluid">
-          <div className="navbar-header">
+          <Nav pullRight>
+            <span id="toggleDraw" onClick={this.toggleDraw}>&#9776;</span>
+          </Nav>
+          <div className="navbar-header ">
             <a className="navbar-brand" href="#">
-              <img alt="Brand" src="..." />
+              <img className="logo-openmrs" alt="Openmrs" src="images/openmrs.png" />
             </a>
           </div>
         </div>

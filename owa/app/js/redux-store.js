@@ -23,7 +23,9 @@ export default function storeNew() {
     visits: [],
     patients: [],
     patientSelected: {},
+    visitSelected: {},
     session: {},
+    sidebar: true,
   }
   const store = createStore(rootReducer, initialState, enhancer)
   return store

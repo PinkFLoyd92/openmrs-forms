@@ -1,3 +1,14 @@
 import Menu from "../components/Menu"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
+import * as sidebarActions from "../actions/sidebar"
 
-export default Menu
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(sidebarActions, dispatch)
+}
+
+const mapStateToProps = state => Object.assign({}, state, {
+  sidebar: state.sidebar,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)

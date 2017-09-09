@@ -114,17 +114,17 @@ plugins.push(new CopyWebpackPlugin([{
   from: "./app/manifest.webapp",
 }]))
 
-// plugins.push(new CopyWebpackPlugin([{
-//     from: './app/img/omrs-button.png',
-//     to: 'img/omrs-button.png'
-// }]));
+plugins.push(new CopyWebpackPlugin([{
+  from: './app/images/openmrs-with-title-small.png',
+    to: 'images/openmrs.png'
+}]));
 
 
 const webpackConfig = {
   quiet: false,
   entry: {
     app: `${__dirname}/app/js/vitals`,
-  // css: `${__dirname}/app/css/vitals.css`,
+   css: `${__dirname}/app/css/vitals.css`,
     vendor: [
       "react", "react-router",
       "redux", "redux-promise-middleware", "redux-thunk", "react-redux",

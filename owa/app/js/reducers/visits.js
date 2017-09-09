@@ -1,4 +1,7 @@
-import { FETCH_ACTIVE_VISITS, RECEIVED_ACTIVE_VISITS } from "../actions/Visits"
+import {
+  FETCH_ACTIVE_VISITS,
+  RECEIVED_ACTIVE_VISITS,
+  CHANGE_SELECTED_VISIT } from "../actions/Visits"
 
 function visits(state = [], action) {
   switch (action.type) {
@@ -13,4 +16,13 @@ function visits(state = [], action) {
   }
 }
 
-export { visits }
+function visitSelected(state = {}, action) {
+  switch (action.type) {
+    case CHANGE_SELECTED_VISIT: {
+      return action.payload
+    }
+    default:
+      return state
+  }
+}
+export { visits, visitSelected }

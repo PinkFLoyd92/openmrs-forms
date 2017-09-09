@@ -4,6 +4,14 @@ export const FETCH_ACTIVE_VISITS = "FETCH_ACTIVE_VISITS"
 export const EMPTY_ACTIVE_VISITS = "EMPTY_ACTIVE_VISITS"
 export const ERROR_FETCHING_VISITS = "EMPTY_ACTIVE_VISITS"
 export const RECEIVED_ACTIVE_VISITS = "RECEIVED_ACTIVE_VISITS"
+export const CHANGE_SELECTED_VISIT = "CHANGE_SELECTED_VISIT"
+
+export function changeSelectedVisit(visit) {
+  return {
+    type: CHANGE_SELECTED_VISIT,
+    payload: visit,
+  }
+}
 
 export function receivedActiveVisits(visits) {
   return {
@@ -18,14 +26,6 @@ export function emptyActiveVisits() {
     payload: [],
   }
 }
-
-export function errorFetchingVisits() {
-  return {
-    type: ERROR_FETCHING_VISITS,
-    payload: [],
-  }
-}
-
 
 export function fetchActiveVisits(input) {
   return (dispatch) => {
@@ -44,6 +44,8 @@ export function fetchActiveVisits(input) {
         }
       })
     } catch (e) {
+      console.error("Something weird happened...", e)
+      dispatch(receivedActiveVisits({ results: [] }))
     }
   }
 }

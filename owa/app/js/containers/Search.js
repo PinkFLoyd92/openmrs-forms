@@ -12,7 +12,7 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => Object.assign({}, state, {
   visits: state.visits,
-  patients: state.patients,
+  visitSelected: state.visitSelected,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Drawer from "../containers/Drawer"
+import Menu from "../containers/Menu"
 import { Grid } from "react-bootstrap"
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Menu />
         <Drawer />
         <Grid id="mainApp">
           { this.props.children }

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { form, FormGroup, FormControl, HelpBlock, ControlLabel,table } from "react-bootstrap"
+import { form, FormGroup, FormControl, HelpBlock, ControlLabel, table } from "react-bootstrap"
 import Moment from "moment"
 
 class Search extends Component {
@@ -10,9 +10,7 @@ class Search extends Component {
     this.state = {
       input: "",
     }
-
     this.handleChange = this.handleChange.bind(this)
-
   }
 
   componentDidMount() {
@@ -20,21 +18,30 @@ class Search extends Component {
     this.props.fetchActiveVisits()
   }
 
+  getValidationState() {
+    return null
+  }
+
   handleRowClick(uuid) {
-    console.info("Event launched:", uuid)
+    console.info("Event launched: ", uuid)
+    let visit = {}
+    try {
+      visit = this.props.visits.filter(visit => visit.uuid === uuid)[0]
+      this.props.changeSelectedVisit(visit)
+    } catch (e) {
+      console.error("Something weird happened: ", e)
+    }
+    // changeSelectedVisit(uuid)
   }
 
   handleChange(event) {
     this.setState({
-      input: event.target.value
+      input: event.target.value,
     }, () => {
-    this.props.fetchActiveVisits(this.state.input)
+      this.props.fetchActiveVisits(this.state.input)
     })
   }
 
-  getValidationState() {
-    return null
-  }
 
   render() {
     const tableVisits = this.props.visits.map((obj) => {
@@ -48,66 +55,66 @@ class Search extends Component {
       } catch (e) {
         console.error("Cannot change the display from patient. ", patient)
       }
-      if(!obj.hidden || obj.hidden === false){
-      return (
-        <tr key={obj.uuid} onClick={this.handleRowClick.bind(this, obj.uuid)}>
-          <td className="info">
-            { patient }
-          </td>
-          <td className="info">
-            { obj.location.display }
-          </td>
-          <td className="info">
-            { obj.visitType.display }
-          </td>
-          <td className="info">
-            { date }
-          </td>
-        </tr>
-      )
-      } else if(obj.hidden && obj.hidden === true){
-      return ( {} )
+      if (!obj.hidden || obj.hidden === false) {
+        return (
+          <tr key={obj.uuid} onClick={this.handleRowClick.bind(this, obj.uuid)}>
+            <td className="info">
+              { patient }
+            </td>
+            <td className="info">
+              { obj.location.display }
+            </td>
+            <td className="info">
+              { obj.visitType.display }
+            </td>
+            <td className="info">
+              { date }
+            </td>
+          </tr>
+        )
+      } else if (obj.hidden && obj.hidden === true) {
+        return ({})
       }
     })
     return (
       <div>
- <form>
-        <FormGroup
-          controlId="inputFilter"
-          validationState={this.getValidationState()}
-        >
-          <ControlLabel>B&uacute;squeda de visita</ControlLabel>
-          <FormControl
-            type="text"
-            value={this.state.input}
-            placeholder=""
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-          <HelpBlock>Ingrese Nombre de Paciente, Tipo de Visita o Localizacion</HelpBlock>
-        </FormGroup>
-      </form>
-      <table className="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>
+        <form>
+          <FormGroup
+            controlId="inputFilter"
+            validationState={this.getValidationState()}
+          >
+            <ControlLabel>B&uacute;squeda de visita</ControlLabel>
+            <FormControl
+              type="text"
+              value={this.state.input}
+              placeholder=""
+              onChange={this.handleChange}
+            />
+            <FormControl.Feedback />
+            <HelpBlock>Ingrese Nombre de Paciente, Tipo de Visita o Localizacion</HelpBlock>
+          </FormGroup>
+        </form>
+        <table className="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>
               Nombre del Paciente
             </th>
-            <th>
+              <th>
               Lugar de Visita
             </th>
-            <th>
+              <th>
               Tipo de Visita
             </th>
-            <th>
+              <th>
               Fecha de Visita
             </th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableVisits}
-        </tbody>
-      </table>
+            </tr>
+          </thead>
+          <tbody>
+            {tableVisits}
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -115,7 +122,8 @@ class Search extends Component {
 
 Search.proptypes = {
   fetchActiveVisits: PropTypes.func,
-  visitsl: PropTypes.Array,
+  changeSelectedVisit: PropTypes.func,
+  visits: PropTypes.Array,
 }
 
 export default Search
