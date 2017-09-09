@@ -60,13 +60,24 @@ class Vitals extends Component {
       accessor: "name",
     }
     columns.push(obj)
+    let dateColumns = []
     for (const key of newDateMap.keys()) {
       let date = new Date(key)
       date = Moment(date)
       date.locale("es")
       date = date.format("dddd, MMMM Do YYYY, h:mm:ss a")
-      columns.push({ Header: date, accessor: date })
+      dateColumns.push({ Header: date, accessor: date, stringDate: key })
     }
+    dateColumns = dateColumns.sort((a, b) => {
+      if (new Date(a.stringDate) < new Date(b.stringDate)){
+        return -1
+      }
+      else if (new Date(a.stringDate) > new Date(b.stringDate)){
+        return 1
+      }
+      return 0
+    })
+    columns.push(...dateColumns)
     return [data, columns]
   }
   render() {
@@ -90,7 +101,6 @@ class Vitals extends Component {
     const total = this.mapObs()
     const columns = this.mapObs()[1]
     const data = this.mapObs()[0]
-    console.info("TOTAL: ", total)
     return (
  <ReactTable
     data={data}
