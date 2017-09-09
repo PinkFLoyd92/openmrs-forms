@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux"
+import logger from 'redux-logger'
 import promiseMiddleware from "redux-promise-middleware"
 import thunkMiddleware from "redux-thunk"
 import rootReducer from "./reducers"
@@ -13,6 +14,7 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
 applyMiddleware(
         thunkMiddleware,
+  logger,
         promiseMiddleware(),
 ),
 )
@@ -20,8 +22,12 @@ applyMiddleware(
 export default function storeNew() {
   const initialState = {
     obs: [],
-    patient: {},
+    visits: [],
+    patientSelected: {},
+    visitSelected: {},
     session: {},
+    sidebar: true,
+    sidebarOption: 1,
   }
   const store = createStore(rootReducer, initialState, enhancer)
   return store

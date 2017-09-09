@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import App from '../components/App';
-import * as DrugActions from '../actions/DrugActions';
+// import React, { Component } from 'react';
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import * as sidebarActions from "../actions/sidebar"
+import App from "../components/App"
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(DrugActions, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators(sidebarActions, dispatch);
+// }
 
-const mapStateToProps = state => Object.assign({}, state, {
-    drawOpen: state.drawOpen,
-});
+// const mapStateToProps = state => Object.assign({}, state, {
+//     sidebar: state.sidebar,
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App
