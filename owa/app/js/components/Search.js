@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { form, FormGroup, FormControl, HelpBlock, ControlLabel, table } from "react-bootstrap"
+import { hashHistory } from 'react-router'
+import { Button, Modal, OverlayTrigger, form, FormGroup, FormControl, HelpBlock, ControlLabel, table } from "react-bootstrap"
 import Moment from "moment"
 
 class Search extends Component {
@@ -9,8 +10,12 @@ class Search extends Component {
     super(props)
     this.state = {
       input: "",
+      showConfirmModal: false,
+      openDelete: false,
     }
     this.handleChange = this.handleChange.bind(this)
+    this.cancelConfirmModal = this.cancelConfirmModal.bind(this)
+    this.confirmModal = this.confirmModal.bind(this)
   }
 
   componentDidMount() {
@@ -23,15 +28,28 @@ class Search extends Component {
   }
 
   handleRowClick(uuid) {
-    console.info("Event launched: ", uuid)
     let visit = {}
     try {
       visit = this.props.visits.filter(visit => visit.uuid === uuid)[0]
       this.props.changeSelectedVisit(visit)
+      this.setState({
+        showConfirmModal: true,
+      })
     } catch (e) {
       console.error("Something weird happened: ", e)
     }
     // changeSelectedVisit(uuid)
+  }
+
+  confirmModal() {
+    this.props.changeSidebarOption(2)
+    hashHistory.push("/vitals")
+  }
+  cancelConfirmModal() {
+    this.setState({
+      showConfirmModal: false,
+    })
+    this.props.changeSelectedVisit({})
   }
 
   handleChange(event) {
@@ -78,6 +96,22 @@ class Search extends Component {
     })
     return (
       <div>
+        <Modal show={this.state.showConfirmModal} onHide={this.cancelConfirmModal}>
+          <Modal.Header closeButton>
+            <Modal.Title> Paciente: {typeof this.props.visitSelected.patient === "undefined" ? "Empty" : this.props.visitSelected.patient.display}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              Confima la revisi&oacute;n de los signos vitales de este paciente?
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+
+            <Button onClick={this.confirmModal} bsStyle="info" >Confirmar</Button>
+            <Button onClick={this.cancelConfirmModal} bsStyle="danger">Cancelar</Button>
+          </Modal.Footer>
+        </Modal>
+
         <form>
           <FormGroup
             controlId="inputFilter"

@@ -8,6 +8,10 @@ class App extends Component {
     super(props)
   }
 
+  componentDidMount(){
+    console.info(this.props.router)
+   this.props.router.push('/search');
+  }
   render() {
     return (
       <div>

@@ -9,6 +9,7 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => Object.assign({}, state, {
   sidebar: state.sidebar,
+  sidebarOption: state.sidebarOption,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu)

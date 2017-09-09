@@ -1,11 +1,14 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
+import { hashHistory } from 'react-router'
+import { Nav, NavItem, Glyphicon, Button } from "react-bootstrap"
 
 class Menu extends Component {
 
   constructor(props) {
     super(props)
     this.handleClose = this.handleClose.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
   }
 
   componentDidMount() {
@@ -16,13 +19,34 @@ class Menu extends Component {
     document.getElementById("sideBar").style.width = "0"
   }
 
+  handleSelect(selectedKey) {
+    console.info("PROPS:", this.props)
+    this.props.changeSidebarOption(selectedKey)
+    switch (Number(selectedKey)) {
+    case 1:{
+      hashHistory.push("/search")
+      break
+    }
+    case 2:{
+        hashHistory.push("/vitals")
+      break
+    }
+    case 3:{
+      this.props.toggleSidebar()
+      break;
+    }
+      default:
+        hashHistory.push("/")
+    }
+  }
+
   render() {
     return (
-      <div id="sideBar" className="sidenav">
-        <a href="#">Buscar Visita</a>
-        <a href="#">Signos Vitales</a>
-        <a href="javascript:void(0)" className="closebtn" onClick={this.handleClose}>&times; </a>
-      </div>
+      <Nav id="sideBar" bsStyle="pills" stacked activeKey={this.props.sidebarOption} onSelect={this.handleSelect} className="sidenav">
+        <NavItem eventKey={3}><Glyphicon glyph="glyphicon glyphicon-remove" /> </NavItem>
+        <NavItem eventKey={1} href="/search">Seleccion de visita</NavItem>
+        <NavItem eventKey={2} href="/vitals">Signos Vitales</NavItem>
+      </Nav>
     )
   }
 }

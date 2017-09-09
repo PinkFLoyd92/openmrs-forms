@@ -2,6 +2,7 @@ import React from "react"
 import App from "./containers/app"
 import Search from "./containers/Search"
 import Menu from "./containers/Menu"
+import Vitals from "./containers/Vitals"
 import Drawer from "./containers/Drawer"
 import { Route, IndexRoute } from 'react-router';
 
@@ -12,7 +13,8 @@ import { Route, IndexRoute } from 'react-router';
 export default (store) => {
     return (
       <Route path="/" component={App}>
-        <IndexRoute component={Search} />
+        <Route path="search" component={Search}/>
+        <Route path="vitals" component={Vitals}/>
       </Route>
     )
 }

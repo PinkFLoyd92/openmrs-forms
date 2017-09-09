@@ -1,4 +1,4 @@
-import { TOGGLE_SIDEBAR } from "../actions/sidebar"
+import { TOGGLE_SIDEBAR, CHANGE_SIDEBAR_OPTION } from "../actions/sidebar"
 
 function sidebar(state = false, action) {
   switch (action.type) {
@@ -15,4 +15,14 @@ function sidebar(state = false, action) {
   }
 }
 
-export { sidebar }
+function sidebarOption(state = 1, action) {
+  switch (action.type) {
+    case CHANGE_SIDEBAR_OPTION: {
+      return action.payload
+    }
+    default:
+      return state
+  }
+}
+
+export { sidebar, sidebarOption }
