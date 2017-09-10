@@ -25,6 +25,7 @@ class Vitals extends Component {
   }
 
   handleReturnClick() {
+    this.props.changeSidebarOption(1)
     hashHistory.push("/search")
   }
   mapObs() {
