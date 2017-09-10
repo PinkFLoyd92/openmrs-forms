@@ -6,6 +6,7 @@ import { hashHistory } from "react-router"
 import { Jumbotron, Button, Grid, Row, Col } from "react-bootstrap"
 import Moment from "moment"
 import ChartVitals from "../containers/chartVitals"
+import FormVitals from "../containers/formVitals"
 
 class Vitals extends Component {
 
@@ -112,6 +113,8 @@ class Vitals extends Component {
             />
           </Col>
           <Col xs={12} md={12}>
+            <br />
+            <FormVitals />
             <br />
           </Col>
           <Col xs={12} md={12}>

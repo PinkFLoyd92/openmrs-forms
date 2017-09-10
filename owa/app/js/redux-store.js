@@ -23,6 +23,7 @@ export default function storeNew() {
   const initialState = {
     obs: [],
     visits: [],
+    vitals: [],
     patientSelected: {},
     visitSelected: {},
     session: {},
