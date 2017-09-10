@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import ReactTable from "react-table"
 import PropTypes from "prop-types"
-import 'react-table/react-table.css'
+import "react-table/react-table.css"
 import { hashHistory } from "react-router"
-import { Jumbotron, Button, Modal, OverlayTrigger, form, FormGroup, FormControl, HelpBlock, ControlLabel, table } from "react-bootstrap"
+import { Jumbotron, Button, Grid, Row, Col } from "react-bootstrap"
 import Moment from "moment"
+import ChartVitals from "../containers/chartVitals"
 
 class Vitals extends Component {
 
@@ -69,10 +70,9 @@ class Vitals extends Component {
       dateColumns.push({ Header: date, accessor: date, stringDate: key })
     }
     dateColumns = dateColumns.sort((a, b) => {
-      if (new Date(a.stringDate) < new Date(b.stringDate)){
+      if (new Date(a.stringDate) < new Date(b.stringDate)) {
         return -1
-      }
-      else if (new Date(a.stringDate) > new Date(b.stringDate)){
+      } else if (new Date(a.stringDate) > new Date(b.stringDate)) {
         return 1
       }
       return 0
@@ -98,14 +98,29 @@ class Vitals extends Component {
         </Jumbotron>
       )
     }
-    const total = this.mapObs()
     const columns = this.mapObs()[1]
     const data = this.mapObs()[0]
     return (
- <ReactTable
-    data={data}
-    columns={columns}
-  />
+      <Grid>
+        <Row className="show-grid">
+          <Col xs={12} md={12}>
+            <ReactTable
+              data={data}
+              columns={columns}
+              defaultPageSize={10}
+            />
+          </Col>
+          <Col xs={12} md={12}>
+            <br />
+          </Col>
+          <Col xs={12} md={12}>
+            <ChartVitals
+              columns={columns}
+              data={data}
+            />
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }
