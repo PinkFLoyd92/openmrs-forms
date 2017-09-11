@@ -75,14 +75,6 @@ class ChartVitals extends Component {
         }],
       },
     }
-    if (this.props.obs.length === 0) {
-      return (
-        <div>
-              No se ha realizado la toma de Pulso y Temperatura
-        </div>
-      )
-    }
-
     const title = (
       <h3>Temperatura / Pulso</h3>
     )
