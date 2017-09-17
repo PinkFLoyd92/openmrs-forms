@@ -5,6 +5,7 @@ import { hashHistory } from "react-router"
 import Moment from "moment"
 
 import { TEMPERATURE_UUID, PULSE_UUID } from "../utilities/constants"
+import apiCall from "../utilities/apiHelper"
 
 /* Component used to create a new encounter
    counting Temperature and Pulse values.

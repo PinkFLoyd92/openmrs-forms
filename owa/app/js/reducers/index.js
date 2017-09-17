@@ -4,7 +4,6 @@ import { patients } from "./patients"
 import { visits, visitSelected } from "./visits"
 import { sidebar, sidebarOption } from "./sidebar"
 import { obs } from "./obs"
-import { vitals } from "./vitals"
 import { errors } from "./errors"
 
 const rootReducer = combineReducers({
@@ -16,7 +15,6 @@ const rootReducer = combineReducers({
   sidebarOption,
   obs,
   errors,
-  vitals,
 })
 
 export default rootReducer

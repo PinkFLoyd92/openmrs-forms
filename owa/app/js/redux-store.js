@@ -23,15 +23,18 @@ export default function storeNew() {
   const initialState = {
     obs: [],
     visits: [],
-    vitals: [],
     patientSelected: {},
     visitSelected: {},
-    session: {},
     sidebar: true,
     sidebarOption: 1,
+    location: {},
+    form: {},
+    encounterType: {},
+    patient: {},
     errors: {
       obs: false,
     },
+    session: {},
   }
   const store = createStore(rootReducer, initialState, enhancer)
   return store

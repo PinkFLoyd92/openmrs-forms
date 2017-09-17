@@ -2,17 +2,19 @@
 import { bindActionCreators } from "redux"
 import { withRouter } from "react-router"
 import { connect } from "react-redux"
-import * as vitals from "../actions/vitals"
-import * as obs from "../actions/Obs"
+import * as visits from "../actions/Visits"
 import FormVitals from "../components/formVitals"
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Object.assign({}, vitals, obs), dispatch)
+  return bindActionCreators(Object.assign({}, visits), dispatch)
 }
 
 const mapStateToProps = state => Object.assign({}, state, {
-  vital: state.vital,
-  obs: state.obs,
+  visitSelected: state.visitSelected,
+  location: state.location,
+  form: state.form,
+  patient: state.patient,
+  encounterType: state.encounterType,
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FormVitals))
