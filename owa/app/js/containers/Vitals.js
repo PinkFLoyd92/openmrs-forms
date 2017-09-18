@@ -14,6 +14,7 @@ const mapStateToProps = state => Object.assign({}, state, {
   location: state.location,
   obs: state.obs,
   sidebarOption: state.sidebarOption,
+  form: state.form,
   errors: state.errors,
 })
 

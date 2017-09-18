@@ -31,6 +31,7 @@ export default function storeNew() {
     form: {},
     encounterType: {},
     patient: {},
+    provider: "nurse",
     errors: {
       obs: false,
     },

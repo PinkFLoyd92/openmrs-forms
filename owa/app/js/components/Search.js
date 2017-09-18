@@ -44,6 +44,7 @@ class Search extends Component {
   confirmModal() {
     this.props.changeSidebarOption(2)
     this.props.fetchLocation(this.props.visitSelected)
+    this.props.fetchForm()
     hashHistory.push("/vitals")
   }
   cancelConfirmModal() {
