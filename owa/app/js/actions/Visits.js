@@ -13,6 +13,19 @@ export function changeSelectedVisit(visit) {
   }
 }
 
+export function updateVisitEncounters(visit) {
+  return (dispatch) => {
+    try {
+      apiCall(null, "get", `/visit/${visit.uuid}?v=full`)
+      .then((result) => {
+        dispatch(changeSelectedVisit(result))
+      })
+    } catch (e) {
+      console.error("Something happened updating visit...", e)
+    }
+  }
+}
+
 export function receivedActiveVisits(visits) {
   return {
     type: RECEIVED_ACTIVE_VISITS,

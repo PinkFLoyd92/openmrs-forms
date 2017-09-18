@@ -17,12 +17,21 @@ class Vitals extends Component {
       dateObservations: new Map(),
     }
     this.handleReturnClick = this.handleReturnClick.bind(this)
+    this.updateVisit = this.updateVisit.bind(this)
   }
 
   /* Fetching the observations taken to the patient... */
   componentWillMount() {
     const encounters = this.props.visitSelected.encounters
     this.props.fetchObs(encounters)
+  }
+
+  updateVisit() {
+    if (this.props.visitSelected !== null && this.props.visitSelected !== {}) {
+      this.props.updateVisitEncounters(this.props.visitSelected)
+      const encounters = this.props.visitSelected.encounters
+      this.props.fetchObs(encounters)
+    }
   }
 
   handleReturnClick() {
@@ -106,15 +115,21 @@ class Vitals extends Component {
       <Grid>
         <Row className="show-grid">
           <Col xs={12} md={12}>
+            <br />
+            <Button bsStyle="warning" onClick={this.updateVisit}> Refrescar datos </Button>
+            <br />
+          </Col>
+          <Col xs={12} md={12}>
             <ReactTable
               data={data}
               columns={columns}
               defaultPageSize={10}
             />
           </Col>
+          <br />
           <Col xs={12} md={12}>
             <br />
-            <FormVitals />
+            {/* <FormVitals /> */}
             <br />
           </Col>
           <Col xs={12} md={12}>
