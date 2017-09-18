@@ -36,6 +36,22 @@ export function updateVisitEncounters(visit) {
   }
 }
 
+export function updateVisitEncounters(visit) {
+  let encounters = []
+  return (dispatch) => {
+    try {
+      apiCall(null, "get", `/visit/${visit.uuid}?v=full`)
+      .then((result) => {
+        dispatch(changeSelectedVisit(result))
+        encounters = result.encounters
+        dispatch(fetchObs(encounters))
+      })
+    } catch (e) {
+      console.error("Something happened updating visit...", e)
+    }
+  }
+}
+
 export function receivedActiveVisits(visits) {
   return {
     type: RECEIVED_ACTIVE_VISITS,
