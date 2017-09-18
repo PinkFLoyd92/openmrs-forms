@@ -24,6 +24,7 @@ class Vitals extends Component {
   componentWillMount() {
     const encounters = this.props.visitSelected.encounters
     this.props.fetchObs(encounters)
+    this.props.fetchEncounterType()
   }
 
   updateVisit() {
@@ -129,7 +130,7 @@ class Vitals extends Component {
           <br />
           <Col xs={12} md={12}>
             <br />
-            {/* <FormVitals /> */}
+            <FormVitals />
             <br />
           </Col>
           <Col xs={12} md={12}>

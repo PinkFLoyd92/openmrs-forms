@@ -7,6 +7,7 @@ import { obs } from "./obs"
 import { location } from "./location"
 import { form } from "./form"
 import { session } from "./session"
+import { encounterType } from "./encounterType"
 import { errors } from "./errors"
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   location,
   form,
   session,
+  encounterType,
   errors,
 })
 
