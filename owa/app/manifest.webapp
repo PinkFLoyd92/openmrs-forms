@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0",
-  "name": "Signos Vitales",
+  "version": "0.1.1",
+  "name": "Manejo de Signos Vitales",
   "description": "Manejo de Signos Vitales",
   "launch_path": "/index.html",
   "icons": {
@@ -10,7 +10,7 @@
     "name": "pinkfloyd92",
     "url": "https://github.com/pinkfloyd92/openmrs-forms"
   },
-  "default_locale": "en",
+  "default_locale": "es",
     "activities": {
       "openmrs": {
         "href": "*"
