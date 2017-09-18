@@ -4,9 +4,10 @@ import { connect } from "react-redux"
 import * as obsActions from "../actions/Obs"
 import * as VisitActions from "../actions/Visits"
 import * as sidebarActions from "../actions/sidebar"
+import * as sessionActions from "../actions/Session"
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Object.assign({}, obsActions, VisitActions, sidebarActions), dispatch)
+  return bindActionCreators(Object.assign({}, obsActions, VisitActions, sidebarActions, sessionActions), dispatch)
 }
 
 const mapStateToProps = state => Object.assign({}, state, {
@@ -16,6 +17,7 @@ const mapStateToProps = state => Object.assign({}, state, {
   sidebarOption: state.sidebarOption,
   form: state.form,
   errors: state.errors,
+  session: state.session,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Vitals)

@@ -6,6 +6,7 @@ import { sidebar, sidebarOption } from "./sidebar"
 import { obs } from "./obs"
 import { location } from "./location"
 import { form } from "./form"
+import { session } from "./session"
 import { errors } from "./errors"
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   obs,
   location,
   form,
+  session,
   errors,
 })
 

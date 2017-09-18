@@ -18,6 +18,9 @@ class Search extends Component {
     this.confirmModal = this.confirmModal.bind(this)
   }
 
+  componentWillMount() {
+    this.props.fetchSession()
+  }
   componentDidMount() {
     console.info("Renderizar pacientes con citas activas...")
     this.props.fetchActiveVisits()
