@@ -21,6 +21,7 @@ class Search extends Component {
   componentWillMount() {
     this.props.fetchSession()
   }
+
   componentDidMount() {
     console.info("Renderizar pacientes con citas activas...")
     this.props.fetchActiveVisits()

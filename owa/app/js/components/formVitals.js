@@ -103,16 +103,16 @@ class FormVitals extends Component {
     form.patient = this.props.visitSelected.patient
     form.encounterType = this.props.encounterType
     form.encounterType = this.props.encounterType
-    form.obsDatetime = `${date.getYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.000-0500`
+    // form.obsDatetime = `${date.getYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.000-0500`
     form.location = this.props.location
     form.form = this.props.form // form* from OpenMRS
-    form.provider = DEFAULT_PROVIDER
+    // form.provider = this.props.provider // not available
     form.obs = []
     Object.keys(this.state.formValues).forEach((key) => {
       const obs = {}
       if (this.state.formValues[key] !== "" && this.state.formValues !== null) {
         obs.person = this.props.visitSelected.patient.uuid
-        obs.obsDatetime = `${date.getYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.000-0500`
+        // obs.obsDatetime = `${date.getYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.000-0500`
         obs.concept = this.state.concepts[key]
         obs.location = "Vitals"
         obs.value = parseInt(this.state.formValues[key])
