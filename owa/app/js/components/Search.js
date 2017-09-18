@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { hashHistory } from 'react-router'
+import { hashHistory } from "react-router"
 import { Button, Modal, OverlayTrigger, form, FormGroup, FormControl, HelpBlock, ControlLabel, table } from "react-bootstrap"
 import Moment from "moment"
 
@@ -43,6 +43,7 @@ class Search extends Component {
 
   confirmModal() {
     this.props.changeSidebarOption(2)
+    this.props.fetchLocation(this.props.visitSelected)
     hashHistory.push("/vitals")
   }
   cancelConfirmModal() {

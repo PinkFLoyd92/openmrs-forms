@@ -11,6 +11,7 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => Object.assign({}, state, {
   visitSelected: state.visitSelected,
+  location: state.location,
   obs: state.obs,
   sidebarOption: state.sidebarOption,
   errors: state.errors,
