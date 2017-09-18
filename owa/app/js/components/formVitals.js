@@ -120,7 +120,6 @@ class FormVitals extends Component {
       }
     })
     apiCall(form, "post", "/encounter").then((result) => {
-      console.info("Result: ", result)
       if (this.props.visitSelected !== null && this.props.visitSelected !== {}) {
         this.props.updateVisitEncounters(this.props.visitSelected)
       }
@@ -129,7 +128,6 @@ class FormVitals extends Component {
 
   // Here we already have the values of pulse, temperature (both or any of them...)
   submitForm() {
-    console.info(this.state)
     this.createForm()
     this.setState({ showModal: false })
   }
@@ -182,7 +180,7 @@ class FormVitals extends Component {
           <Modal.Footer>
             <ButtonToolbar>
               <Button bsStyle="primary" bsSize="large" onClick={this.submitForm}>Confirmar</Button>
-              <Button bsSize="large" onClick={this.close}> Button</Button>
+              <Button bsStyle="danger" bsSize="large" onClick={this.close}> Cancelar</Button>
             </ButtonToolbar>
           </Modal.Footer>
         </Modal>
