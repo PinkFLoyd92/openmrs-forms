@@ -30,8 +30,8 @@ class Vitals extends Component {
   updateVisit() {
     if (this.props.visitSelected !== null && this.props.visitSelected !== {}) {
       this.props.updateVisitEncounters(this.props.visitSelected)
-      const encounters = this.props.visitSelected.encounters
-      this.props.fetchObs(encounters)
+      // const encounters = this.props.visitSelected.encounters
+      // this.props.fetchObs(encounters)
     }
   }
 

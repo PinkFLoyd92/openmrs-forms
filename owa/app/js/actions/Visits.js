@@ -1,4 +1,5 @@
 import apiCall from "../utilities/apiHelper"
+import { fetchObs } from "./Obs"
 
 export const FETCH_ACTIVE_VISITS = "FETCH_ACTIVE_VISITS"
 export const EMPTY_ACTIVE_VISITS = "EMPTY_ACTIVE_VISITS"
@@ -14,11 +15,14 @@ export function changeSelectedVisit(visit) {
 }
 
 export function updateVisitEncounters(visit) {
+  let encounters = []
   return (dispatch) => {
     try {
       apiCall(null, "get", `/visit/${visit.uuid}?v=full`)
       .then((result) => {
         dispatch(changeSelectedVisit(result))
+        encounters = result.encounters
+        dispatch(fetchObs(encounters))
       })
     } catch (e) {
       console.error("Something happened updating visit...", e)

@@ -119,9 +119,11 @@ class FormVitals extends Component {
         form.obs.push(obs)
       }
     })
-    console.info(form)
     apiCall(form, "post", "/encounter").then((result) => {
-      console.info(result)
+      console.info("Result: ", result)
+      if (this.props.visitSelected !== null && this.props.visitSelected !== {}) {
+        this.props.updateVisitEncounters(this.props.visitSelected)
+      }
     })
   }
 
