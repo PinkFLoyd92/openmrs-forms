@@ -1,5 +1,5 @@
 import apiCall from "../utilities/apiHelper"
-import ENCOUNTER_TYPE_UUID from "../utilities/constants"
+import { ENCOUNTER_TYPE_UUID } from "../utilities/constants"
 
 export const FETCH_ENCOUNTER_TYPE = "FETCH_ENCOUNTER_TYPE"
 export const RECEIVED_ENCOUNTER_TYPE = "RECEIVED_ENCOUNTER_TYPE"

@@ -9,9 +9,10 @@ import * as sidebarActions from "../actions/sidebar"
 import * as locationActions from "../actions/Location"
 import * as formActions from "../actions/Form"
 import * as sessionActions from "../actions/Session"
+import * as providerActions from "../actions/Provider"
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Object.assign({}, VisitActions, sidebarActions, locationActions, formActions, sessionActions), dispatch)
+  return bindActionCreators(Object.assign({}, VisitActions, sidebarActions, locationActions, formActions, sessionActions, providerActions ), dispatch)
 }
 
 const mapStateToProps = state => Object.assign({}, state, {
@@ -20,6 +21,7 @@ const mapStateToProps = state => Object.assign({}, state, {
   location: state.location,
   form: state.form,
   session: state.session,
+  provider: state.provider,
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search))

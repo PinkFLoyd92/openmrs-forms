@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import { hashHistory } from "react-router"
 import Moment from "moment"
 
-import { TEMPERATURE_UUID, PULSE_UUID } from "../utilities/constants"
+import { TEMPERATURE_UUID, PULSE_UUID, DEFAULT_PROVIDER } from "../utilities/constants"
 import apiCall from "../utilities/apiHelper"
 
 /* Component used to create a new encounter
@@ -38,12 +38,10 @@ class FormVitals extends Component {
       visit: "",
       location: "",
       form: "",
-      concepts: [
-        {
-          temperature: TEMPERATURE_UUID,
-          pulse: PULSE_UUID,
-        },
-      ],
+      concepts: {
+        temperature: TEMPERATURE_UUID,
+        pulse: PULSE_UUID,
+      },
     }
     this.handlePulseChange = this.handlePulseChange.bind(this)
     this.handleTemperatureChange = this.handleTemperatureChange.bind(this)
@@ -52,6 +50,7 @@ class FormVitals extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.close = this.close.bind(this)
     this.submitForm = this.submitForm.bind(this)
+    this.createForm = this.createForm.bind(this)
   }
 
   handlePulseChange(evt) {
@@ -98,8 +97,38 @@ class FormVitals extends Component {
     this.setState({ showModal: false })
   }
 
+  createForm() {
+    const date = new Date()
+    const form = {}
+    form.patient = this.props.visitSelected.patient
+    form.encounterType = this.props.encounterType
+    form.encounterType = this.props.encounterType
+    form.obsDatetime = `${date.getYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.000-0500`
+    form.location = this.props.location
+    form.form = this.props.form // form* from OpenMRS
+    form.provider = DEFAULT_PROVIDER
+    form.obs = []
+    Object.keys(this.state.formValues).forEach((key) => {
+      const obs = {}
+      if (this.state.formValues[key] !== "" && this.state.formValues !== null) {
+        obs.person = this.props.visitSelected.patient.uuid
+        obs.obsDatetime = `${date.getYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.000-0500`
+        obs.concept = this.state.concepts[key]
+        obs.location = "Vitals"
+        obs.value = parseInt(this.state.formValues[key])
+        form.obs.push(obs)
+      }
+    })
+    console.info(form)
+    apiCall(form, "post", "/encounter").then((result) => {
+      console.info(result)
+    })
+  }
+
   // Here we already have the values of pulse, temperature (both or any of them...)
   submitForm() {
+    console.info(this.state)
+    this.createForm()
     this.setState({ showModal: false })
   }
 

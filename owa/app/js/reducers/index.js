@@ -8,6 +8,7 @@ import { location } from "./location"
 import { form } from "./form"
 import { session } from "./session"
 import { encounterType } from "./encounterType"
+import { provider } from "./provider"
 import { errors } from "./errors"
 
 const rootReducer = combineReducers({
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   form,
   session,
   encounterType,
+  provider,
   errors,
 })
 
