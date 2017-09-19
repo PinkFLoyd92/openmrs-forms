@@ -1,16 +1,3 @@
-img.logo-openmrs{
-  width: 25%;
-}
-
-#toggleDraw {
-  font-size:30px;
-  color:white;
-  cursor:pointer;
-}
-body {
-    font-family: "Lato", sans-serif;
-}
-
 .sideBarMenuContainer {
     position: fixed;
     height: 100%;
@@ -66,12 +53,12 @@ nav.sidebar {
 
     /*adds border top to first nav box */
     nav.sidebar :global(.navbar-nav)>li:first-child {
-        border-top: 1px #00cc44 solid;
+        border-top: 1px #e5e5e5 solid;
     }
 
     /*adds border to bottom nav boxes*/
     nav.sidebar :global(.navbar-nav)>li {
-        border-bottom: 1px #00cc44 solid;
+        border-bottom: 1px #e5e5e5 solid;
     }
 
     /* Colors/style dropdown box*/

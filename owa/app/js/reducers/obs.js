@@ -1,5 +1,14 @@
-import { FETCH_OBS, RECEIVED_OBS } from "../actions/Obs"
+import { FETCH_OBS, FETCHING_OBS, RECEIVED_OBS } from "../actions/Obs"
 
+function fetching_obs(state = false, action) {
+  switch (action.type) {
+    case FETCHING_OBS: {
+      return action.payload
+    }
+    default:
+      return state
+  }
+}
 function obs(state = [], action) {
   switch (action.type) {
     case FETCH_OBS: {
@@ -13,4 +22,4 @@ function obs(state = [], action) {
   }
 }
 
-export { obs }
+export { obs, fetching_obs }

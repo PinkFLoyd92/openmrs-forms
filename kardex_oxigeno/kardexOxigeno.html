@@ -1,16 +1,4 @@
-<htmlform formName="Mediciones y Actividades" formEncounterType="c01e4101-c307-40d2-92d1-b5f73b5464e4" formVersion="1.0">
-  <script>
-   /* jq(document).ready(function () {
-    *   jq('.dieta').find('input').change(function (selected) {
-    *     for(index in jq('.dieta').find('input').toArray()) {
-    *       console.info(jq(selected))
-    *       console.info(index)
-    *     }
-    *   })
-
-    * })*/
-
-  </script>
+<htmlform formName="Kardex de Oxigeno" formEncounterType="eefba3f4-18dc-4ac3-945f-72fbf601c3e1" formVersion="1.0">
 
   <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
     <fieldset>
@@ -33,13 +21,13 @@
       <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
     </fieldset>
   </div>
-
-  <section id="mediciones" sectionTag="section" headerStyle="title" headerCode="referenceapplication.vitals.title">
+  
+  <section id="kardex" sectionTag="section" headerStyle="title" headerCode="referenceapplication.vitals.title">
     <fieldset>
-      <legend>Aseo</legend>
+      <legend>Suministro de Terapia</legend>
       <h4>Aseo</h4>
       <p class="left">
-        <obs conceptId="164972" style="checkbox" />
+        <obs conceptId="164977" style="checkbox" />
       </p>
     </fieldset>
 
@@ -47,7 +35,7 @@
       <legend>Baño</legend>
       <h4>Baño</h4>
       <p class="left">
-        <obs conceptId="164971" style="checkbox" />
+        <obs conceptId="164971" style="radio" answerConceptIds=""/>
       </p>
     </fieldset>
     <fieldset>

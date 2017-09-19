@@ -1,5 +1,7 @@
 import apiCall from "../utilities/apiHelper"
 import { fetchObs } from "./Obs"
+import { fetchLocation } from "./Location"
+import { fetchForm } from "./Form"
 
 export const FETCH_ACTIVE_VISITS = "FETCH_ACTIVE_VISITS"
 export const EMPTY_ACTIVE_VISITS = "EMPTY_ACTIVE_VISITS"
@@ -8,9 +10,13 @@ export const RECEIVED_ACTIVE_VISITS = "RECEIVED_ACTIVE_VISITS"
 export const CHANGE_SELECTED_VISIT = "CHANGE_SELECTED_VISIT"
 
 export function changeSelectedVisit(visit) {
-  return {
-    type: CHANGE_SELECTED_VISIT,
-    payload: visit,
+  return (dispatch) => {
+    dispatch(fetchForm())
+    dispatch(fetchLocation(visit))
+    dispatch({
+      type: CHANGE_SELECTED_VISIT,
+      payload: visit,
+    })
   }
 }
 

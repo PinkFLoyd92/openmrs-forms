@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import "react-table/react-table.css"
 import { hashHistory } from "react-router"
 import { Jumbotron, Button, Grid, Row, Col } from "react-bootstrap"
+var Loader = require('halogen/PulseLoader');
 import Moment from "moment"
 import ChartVitals from "../containers/chartVitals"
 import FormVitals from "../containers/formVitals"
@@ -101,13 +102,17 @@ class Vitals extends Component {
           <p><Button bsStyle="danger" onClick={this.handleReturnClick} >Ir a Seleccion de Visitas</Button></p>
         </Jumbotron>
       )
-    } else if (this.props.obs.length === 0) {
+    } else if (this.props.obs.length === 0 && this.props.fetching_obs === false) {
       return (
         <Jumbotron>
           <h1>No hay Observaciones realizadas</h1>
           <p>Acepte el mensaje para continuar</p>
           <p><Button bsStyle="danger" onClick={this.handleReturnClick} >Ir a Seleccion de Visitas</Button></p>
         </Jumbotron>
+      )
+    } else if (this.props.obs.length === 0 && this.props.fetching_obs === true) {
+      return (
+        <Loader color="#26A65B" size="16px" margin="4px" />
       )
     }
     const columns = this.mapObs()[1]

@@ -35,6 +35,7 @@ export default function storeNew() {
     errors: {
       obs: false,
     },
+    fetching_obs: false,
     session: {},
   }
   const store = createStore(rootReducer, initialState, enhancer)

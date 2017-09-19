@@ -3,7 +3,7 @@ import { routerReducer as router } from "react-router-redux"
 import { patients } from "./patients"
 import { visits, visitSelected } from "./visits"
 import { sidebar, sidebarOption } from "./sidebar"
-import { obs } from "./obs"
+import { obs, fetching_obs } from "./obs"
 import { location } from "./location"
 import { form } from "./form"
 import { session } from "./session"
@@ -24,6 +24,7 @@ const rootReducer = combineReducers({
   session,
   encounterType,
   provider,
+  fetching_obs,
   errors,
 })
 

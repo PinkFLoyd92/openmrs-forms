@@ -20,6 +20,7 @@ const mapStateToProps = state => Object.assign({}, state, {
   errors: state.errors,
   session: state.session,
   encounterType: state.encounterType,
+  fetching_obs: state.fetching_obs,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Vitals)

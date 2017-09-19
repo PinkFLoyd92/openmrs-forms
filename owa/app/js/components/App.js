@@ -16,7 +16,6 @@ class App extends Component {
     return (
       <div>
         <Menu />
-        <Drawer />
         <Grid id="mainApp">
           { this.props.children }
         </Grid>
