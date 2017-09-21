@@ -1,5 +1,5 @@
 <!-- FormEncounterType represents Vitals -->
-<htmlform formName="balance_hidrico" formEncounterType="67a71486-1a54-468f-ac3e-7091a9a79584" formVersion="1.0">
+<htmlform formName="balance_hidrico" formEncounterType="7609d700-c05c-4885-b883-62869be61f6d" formVersion="1.0">
 	<style>
 		#total_ingresos_r{
 			width: 50px;
@@ -32,7 +32,7 @@
       <legend>Who?</legend>
       <label>Who?</label>
 
-      <encounterProviderAndRole default="currentUser" encounterRole="240b26f9-dd88-4172-823d-4a8bfeb7841f" required="true"/>
+      <encounterProvider default="currentUser" required="true"/>
     </fieldset>
 
     <fieldset>
@@ -46,22 +46,21 @@
   <section id="balance_hidrico" sectionTag="section">
     <fieldset id='forma_ingresos'>
       <legend>Ingresos (cc)</legend>
-      <h3><lookup expression="fn.getConcept('163148').name"/></h3>
+      <h3>Parenteral (cc)</h3>
 
       <p class="left">
-        <obs conceptId="163148"  id="parenteral" unitsCssClass="append-to-value"/>
+        <obs conceptId="164951"  id="parenteral" unitsCssClass="append-to-value" required="true"/>
       </p>
 
-			<h3><lookup expression="fn.getConcept('163151').name"/></h3>
+			<h3>Vía oral (cc)</h3>
 
 			<p class="left">
-				<obs conceptId="163151"  id="via_oral" unitsCssClass="append-to-value"/>
+				<obs conceptId="164952"  id="via_oral" unitsCssClass="append-to-value" required='true'/>
 			</p>
 
 			<div hidden='true'>
-				<h3><lookup expression="fn.getConcept('163163').name"/></h3>
 				<p class="left">
-					<obs conceptId="163163"  id="total_ingresos" unitsCssClass="append-to-value" readonly='true'/>
+					<obs conceptId="164956"  id="total_ingresos" unitsCssClass="append-to-value" readonly='true'/>
 				</p>
 			</div>
 
@@ -73,28 +72,27 @@
 
     <fieldset id='forma_egresos'>
       <legend>Egresos (cc)</legend>
-      <h3><lookup expression="fn.getConcept('163140').name"/></h3>
+      <h3>Orina (cc)</h3>
 
       <p class="left">
-        <obs conceptId="163140"  id="orina" unitsCssClass="append-to-value"/>
+        <obs conceptId="164950"  id="orina" unitsCssClass="append-to-value" required='true'/>
       </p>
 
-			<h3><lookup expression="fn.getConcept('163152').name"/></h3>
+			<h3>Drenaje (cc)</h3>
 
 			<p class="left">
-				<obs conceptId="163152"  id="drenaje" unitsCssClass="append-to-value"/>
+				<obs conceptId="164953"  id="drenaje" unitsCssClass="append-to-value" required='true'/>
 			</p>
 
-			<h3><lookup expression="fn.getConcept('163153').name"/></h3>
+			<h3>Otros (cc)</h3>
 
 			<p class="left">
-				<obs conceptId="163153"  id="otros" unitsCssClass="append-to-value"/>
+				<obs conceptId="164954"  id="otros" unitsCssClass="append-to-value" required='true'/>
 			</p>
 
 			<div hidden='true'>
-				<h3><lookup expression="fn.getConcept('163164').name"/></h3>
 				<p class="left">
-					<obs conceptId="163164"  id="total_egresos" unitsCssClass="append-to-value" readonly='true'/>
+					<obs conceptId="164955"  id="total_egresos" unitsCssClass="append-to-value" readonly='true'/>
 				</p>
 			</div>
 			<h3>Total (cc)</h3>
