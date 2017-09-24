@@ -3,7 +3,7 @@ import { Form, Button, FormControl, HelpBlock, FormGroup, ControlLabel, Modal, P
 import PropTypes from "prop-types"
 import { hashHistory } from "react-router"
 import Moment from "moment"
-
+var Loader = require('halogen/PulseLoader');
 import { TEMPERATURE_UUID, PULSE_UUID, DEFAULT_PROVIDER } from "../utilities/constants"
 import apiCall from "../utilities/apiHelper"
 
@@ -75,13 +75,13 @@ class FormVitals extends Component {
 
   getTemperatureValidationState() {
     const val = this.state.formValues.temperature
-    if ((val > 20 && val < 50) || val === "") return "success"
+    if ((val >= 25 && val <= 43) || val === "") return "success"
     return "error"
   }
 
   getPulseValidationState() {
     const val = this.state.formValues.pulse
-    if ((val > 0 && val < 300) || val === "") return "success"
+    if ((val > 0 && val <= 230) || val === "") return "success"
     return "error"
   }
 
@@ -144,7 +144,7 @@ class FormVitals extends Component {
             {" "}
             <FormControl data-id="pulse" type="number" value={this.state.formValues.pulse} onChange={this.handlePulseChange} />
             <FormControl.Feedback />
-            <HelpBlock>Pulso v&aacute;lido entre 0 y 300 </HelpBlock>
+            <HelpBlock>Pulso v&aacute;lido entre 0 y 230 </HelpBlock>
           </FormGroup>
           {" "}
           <FormGroup controlId="formTemperature" validationState={this.getTemperatureValidationState()}>
@@ -152,18 +152,18 @@ class FormVitals extends Component {
             {" "}
             <FormControl data-id="temperature" type="number" value={this.state.formValues.temperature} onChange={this.handleTemperatureChange} />
             <FormControl.Feedback />
-            <HelpBlock>Temperatura v&aacute;lida entre 20 y 50 grados Celsius</HelpBlock>
+            <HelpBlock>Temperatura v&aacute;lida entre 25 y 43 grados Celsius</HelpBlock>
           </FormGroup>
           {" "}
 &nbsp;&nbsp;&nbsp;&nbsp;
           <Button bsStyle="info" bsSize="large" type="submit" onClick={this.handleSubmit}>
         Crear Observaci&oacute;n
     </Button>
-      {(() => {
-        if (this.props.fetching_obs) {
-          return 'asdasdassad'
-        }
-      })()}
+          {(() => {
+            if (this.props.fetching_obs) {
+              return (<span><Loader color="#26A65B" size="20px" margin="10px" /></span>);
+            }
+          })()}
         </Form>
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
