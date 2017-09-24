@@ -1,0 +1,254 @@
+<!-- FormEncounterType representa a Terapia respiratoria -->
+<htmlform formName="Terapia_Respiratoria" formEncounterType="eefba3f4-18dc-4ac3-945f-72fbf601c3e1" formVersion="0.1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"></link>
+  <style>
+   #calculated-time {
+     font-weight: bold;
+     font-size: 1.4em;
+   }
+
+   .encounter-summary-container #calculated-time {
+     font-size: 1em;
+     font-weight: normal;
+   }
+  </style>
+
+
+    <script type="text/javascript">
+     // time Start and time Finish are Strings
+     var calculateTime = function(timeStart, timeFinish) {
+       if (timeStart &amp;&amp; timeFinish) {
+         Date start = Date.parse(timeStart)
+         Date finish = Date.parse(timeFinish)
+         if(finish > start) {
+           var delta = Math.abs(finish - start) / 1000;
+           var days = Math.floor(delta / 86400);
+           delta -= days * 86400;
+           var hours = Math.floor(delta / 3600) % 24;
+           delta -= hours * 3600;
+           var minutes = Math.floor(delta / 60) % 60;
+           return minutes;
+         }
+       }
+       return -1;
+     }
+    </script>
+
+    <ifMode mode="ENTER">
+      <script type="text/javascript">
+
+       // functions to handle updating the bmi when in ENTER mode
+       var updateTime = function() {
+         var start = htmlForm.getValueIfLegal('timeStart.value');
+         var finish = htmlForm.getValueIfLegal('timeFinal.value');
+
+         var minutes = calculateTime(wt, ht);
+
+         if (minutes == null || isNaN(bmi)) {
+           jq('#calculated-bmi-wrapper').hide();
+         } else if(minutes>=0){
+           jq('#no-calculated-time').hide();
+           jq('#calculated-time-wrapper').show();
+           jq('#calculated-time').html(minutes.toFixed(1));
+           jq('#hidden-calculated-time').val(time.toFixed(1));
+         }
+       };
+
+       jq(function() {
+         jq('#calculated-time-wrapper').hide();
+
+         getField('timeStart.value').change(updateTime)
+         getField('timeFinal.value').change(updateTime);
+         updateTime();
+       });
+
+       /* 
+        *        jq(function() {
+        * 	 jq('#bp_systolic input[type=text]').attr('min', '50');
+        *        });
+        * 
+        *        jq(function() {
+        * 	 jq('#bp_diastolic input[type=text]').attr('min', '30');
+        *        });
+        * */
+      </script>
+    </ifMode>
+
+    <script>
+     /* jq(function() {
+      *   jq('#bp_systolic > input').addClass('expected');
+      *   jq('#bp_diastolic > input').addClass('expected');
+      * });*/
+
+    </script>
+
+    <ifMode mode="VIEW">
+      <script type="text/javascript">
+
+       // handle displaying the bmi when in VIEW mode
+       jq(function() {
+
+         // we have to iterate through in case there are multiple vitals forms
+         // displayed on a single page
+
+         jq('htmlform').each(function(index, form) {
+           jq(form).find('#calculated-time-continue').hide();
+           jq(form).find('#no-calculated-time').hide();
+
+           var timeStart = jq(form).find('#timeStart').find('.value').text();
+           var timeFinal = jq(form).find('#timeFinal').find('.value').text();
+
+           var minutes = calculateTime(timeStart, timeFinal);
+
+           if (minutes != null &amp;&amp; !isNaN(minutes) && minutes > 0) {
+             jq(form).find('#calculated-time-wrapper').show();
+             jq(form).find('#calculated-time').html(bmi.toFixed(1));
+             jq(form).find('#hidden-calculated-time').val(time.toFixed(1));
+           }
+         });
+       });</script>
+    </ifMode>
+  <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+    <fieldset>
+      <legend>When?</legend>
+      <label>When?</label>
+
+      <encounterDate default="now" showTime="false"/>
+    </fieldset>
+
+    <fieldset>
+      <legend>Who?</legend>
+      <label>Who?</label>
+
+      <encounterProviderAndRole default="currentUser" encounterRole="240b26f9-dd88-4172-823d-4a8bfeb7841f" required="true"/>
+    </fieldset>
+
+    <fieldset>
+      <legend>Where?</legend>
+      <label>Where?</label>
+
+      <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+    </fieldset>
+  </div>
+
+  <section id="terapia" sectionTag="section" headerStyle="title">
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('CIEL:164977').name"/></legend>
+      <h3><lookup expression="fn.getConcept('CIEL:164977').name"/></h3>
+      <p class="left">
+        <obs conceptId="164977" style="checkbox" answerConceptIds="164976"  showUnits="false" unitsCssClass="append-to-value"/>
+      </p>
+    </fieldset>
+
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('CIEL:5089').name"/></legend>
+      <h3><lookup expression="fn.getConcept('CIEL:5089').name"/></h3>
+
+      <p class="left">
+        <obs conceptId="CIEL:5089" id="weight" showUnits="uicommons.units.kilograms" unitsCssClass="append-to-value"/>
+      </p>
+
+    </fieldset>
+
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('163140').name"/></legend>
+      <h3><lookup expression="fn.getConcept('163140').name"/></h3>
+
+      <p class="left">
+        <obs conceptId="163140" id="orina" showUnits="uicommons.units.kilograms" unitsCssClass="append-to-value"/>
+      </p>
+
+    </fieldset>
+
+    <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
+    <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 5">
+
+      <fieldset>
+        <legend><uimessage code="referenceapplication.vitals.bmi.title"/></legend>
+        <h3><uimessage code="referenceapplication.vitals.bmi.title"/></h3>
+
+        <span id="no-calculated-bmi">
+          <uimessage code="referenceapplication.vitals.bmi.instructions"/>
+        </span>
+        <span id="calculated-bmi-wrapper">
+          <ifMode mode="VIEW" include="false">
+            <uimessage code="referenceapplication.vitals.bmi.display"/>
+          </ifMode>
+          <span id='calculated-bmi'></span>
+        </span>
+
+        <p id="calculated-bmi-continue">
+          <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
+          <uimessage code="referenceapplication.vitals.calculatedField.continue"/>
+        </p>
+      </fieldset>
+
+    </includeIf>
+
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('CIEL:5088').name"/></legend>
+      <h3><lookup expression="fn.getConcept('CIEL:5088').name"/></h3>
+
+      <p class="left">
+        <obs conceptId="CIEL:5088" id="temperature" showUnits="uicommons.units.degreesCelsius" unitsCssClass="append-to-value"/>
+      </p>
+
+    </fieldset>
+
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('CIEL:5087').name"/></legend>
+      <h3><lookup expression="fn.getConcept('CIEL:5087').name"/></h3>
+
+      <p>
+        <obs conceptId="CIEL:5087" id="heart_rate" showUnits="uicommons.units.perMinute" unitsCssClass="append-to-value"/>
+      </p>
+    </fieldset>
+
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('CIEL:5242').name"/></legend>
+      <h3><lookup expression="fn.getConcept('CIEL:5242').name"/></h3>
+
+      <p>
+        <obs conceptId="CIEL:5242" id="respiratory_rate" showUnits="uicommons.units.perMinute" unitsCssClass="append-to-value"/>
+      </p>
+    </fieldset>
+
+    <fieldset field-separator=" / ">
+      <legend><uimessage code="referenceapplication.vitals.bloodPressure.title"/></legend>
+      <h3><uimessage code="referenceapplication.vitals.bloodPressure.title"/></h3>
+
+      <p class="left">
+        <obs conceptId="CIEL:5085" id="bp_systolic"/>
+      </p>
+      <p class="left">
+        /
+      </p>
+      <p class="left">
+        <obs conceptId="CIEL:5086" id="bp_diastolic"/>
+      </p>
+    </fieldset>
+
+    <fieldset>
+      <legend><lookup expression="fn.getConcept('CIEL:5092').name"/></legend>
+      <h3><lookup expression="fn.getConcept('CIEL:5092').name"/></h3>
+
+      <p>
+        <obs conceptId="CIEL:5092" id="o2_sat" showUnits="uicommons.units.percent" unitsCssClass="append-to-value"/>
+      </p>
+    </fieldset>
+
+
+    <!-- only show BMI if patient is less than 13 years old (on the encounterDate) -->
+    <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
+      <fieldset>
+        <legend><lookup expression="fn.getConcept('CIEL:1343').name"/></legend>
+        <h3><lookup expression="fn.getConcept('CIEL:1343').name"/></h3>
+
+        <p>
+          <obs conceptId="CIEL:1343" id="muac" showUnits="uicommons.units.millimeters" unitsCssClass="append-to-value"/>
+        </p>
+      </fieldset>
+    </includeIf>
+  </section>
+  <submit/>
+</htmlform>

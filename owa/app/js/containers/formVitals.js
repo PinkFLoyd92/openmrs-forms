@@ -17,6 +17,7 @@ const mapStateToProps = state => Object.assign({}, state, {
   patient: state.patient,
   encounterType: state.encounterType,
   provider: state.provider,
+  fetching_obs: state.fetching_obs,
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FormVitals))

@@ -119,7 +119,10 @@ class FormVitals extends Component {
         form.obs.push(obs)
       }
     })
+    this.props.fetchingObs(true)
+    // submitting form...
     apiCall(form, "post", "/encounter").then((result) => {
+      console.info("Result: ", result)
       if (this.props.visitSelected !== null && this.props.visitSelected !== {}) {
         this.props.updateVisitEncounters(this.props.visitSelected)
       }
@@ -156,6 +159,11 @@ class FormVitals extends Component {
           <Button bsStyle="info" bsSize="large" type="submit" onClick={this.handleSubmit}>
         Crear Observaci&oacute;n
     </Button>
+      {(() => {
+        if (this.props.fetching_obs) {
+          return 'asdasdassad'
+        }
+      })()}
         </Form>
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
