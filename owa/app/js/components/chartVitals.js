@@ -10,9 +10,6 @@ class ChartVitals extends Component {
   constructor(props) {
     super(props)
   }
-  componentDidMount() {
-    console.info("CHART PROPS: ", this.props)
-  }
 
   render() {
     const data = []
@@ -26,7 +23,7 @@ class ChartVitals extends Component {
     columns = columns.map(value => value.accessor)
     obs.forEach((ob, i) => {
       const obj = {}
-      obj.fill = false
+      obj.fill = true
       obj.lineTension = 0.1
       obj.label = ob.name
       obj.data = []
@@ -61,6 +58,7 @@ class ChartVitals extends Component {
       obj.pointHoverBorderWidth = 1
       obj.pointRadius = 1
       obj.pointHitRadius = 10
+      obj.spanGaps = true
       datasets.push(obj)
     })
     data.datasets = datasets
